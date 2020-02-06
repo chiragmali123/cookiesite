@@ -242,7 +242,7 @@ try{
     domain: '.' + window.location.host.replace(/:\d+/, ''), // Get current domain
     baseurl: '', // base url for php, flash and silverlight assets
     asseturi: '/assets', // assets = .fla, .jar, etc
-    phpuri: '/php', // php file path or route
+    phpuri: '/cookie-app/php', // php file path or route
     authPath: false, //'/evercookie_auth.php', // set to false to disable Basic Authentication cache
     swfFileName: '/evercookie.swf',
     xapFileName: '/evercookie.xap',
@@ -401,7 +401,7 @@ try{
           i++ < _ec_tests) {
           setTimeout(function () {
             self._evercookie(name, cb, value, i, dont_reset);
-          }, 300);
+          }, 600);
         }
       }
 
@@ -426,7 +426,7 @@ try{
         {
           setTimeout(function () {
             self._evercookie(name, cb, value, i, dont_reset);
-          }, 300);
+          }, 600);
         }
 
         // we hit our max wait time or got all our data
@@ -1121,7 +1121,7 @@ try{
       if (i < _ec_tests && typeof swfobject === "undefined") {
         setTimeout(function () {
           waitForSwf(i);
-        }, 300);
+        }, 600);
       }
     };
 

@@ -1,50 +1,58 @@
 <html>
 <head>
 <body>
-    <script type="text/javascript" src="js/evercookie.js"></script>
+    <script type="text/javascript" src="js/ev.js"></script>
     <script type="text/javascript" src="js/swfobject-2.2.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <script>
-    var ec = new evercookie();
 
-    // set a cookie "id" to "12345"
-    // usage: ec.set(key, value)
-
-    function setCookie(){
-        var valuetoSet=document.getElementById("myText").value
-        ec.set("id", valuetoSet);
+    function uid() {
+        var result='';
+        for(var i=0; i<32; i++)
+        result += Math.floor(Math.random()*16).toString(16).toUpperCase();
+        return result
     }
 
+    var ec = new evercookie();
+    ec.get("id", function(value) {
+        if(value===undefined){
+            var newId = uid();
+            ec.set("id", newId);
+            var request = new XMLHttpRequest();
 
-    // retrieve a cookie called "id" (simply)
-    ec.get("id", function(value) { alert("Cookie value is " + value) });
+            request.open('Get', '/cookie-app/pixel?id='+newId);
+            var div=document.getElementById("viewerId")
+            div.innerHTML = "New Viewer Id is:"+newId
+            request.onload = function () {
 
-    // or use a more advanced callback function for getting our cookie
-    // the cookie value is the first param
-    // an object containing the different storage methods
-    // and returned cookie values is the second parameter
-    /*function getCookie(best_candidate, all_candidates)
-    {
-        alert("The retrieved cookie is: " + best_candidate + "\n" +
-        	"You can see what each storage mechanism returned " +
-    		"by looping through the all_candidates object.");
+                document.getElementById("image").src = JSON.parse(request.responseText).image;
 
-    	for (var item in all_candidates)
-    		document.write("Storage mechanism " + item +
-    			" returned: " + all_candidates[item] + "<br>");
-    }*/
-    //ec.get("id", getCookie);
-
-    // we look for "candidates" based off the number of "cookies" that
-    // come back matching since it's possible for mismatching cookies.
-    // the best candidate is most likely the correct one
+            };
+            request.send();
+        }
+        else {
+            var request2 = new XMLHttpRequest();
+            request2.open('Get', '/cookie-app/getimage?id='+value);
+            var div=document.getElementById("viewerId")
+            div.innerHTML = "Existing Viewer Id is:"+value
+            request2.onload = function () {
+              document.getElementById("image").src = JSON.parse(request2.responseText).image;
+            };
+            request2.send();
+        }
+    });
     </script>
 </head>
 
 
  <br>
-  <input type="text" id="myText" value="code"><br>
+  <!--<input type="text" id="myText" value="code"><br>
   
-  <button onclick="setCookie()">Click me</button>
+  <button onclick="setCookie()">Click me</button>-->
+    <div id="viewerId" >
+
+    </div>
+    <img src="" id="image" height="200" width="200">
 </body>
 </html>
