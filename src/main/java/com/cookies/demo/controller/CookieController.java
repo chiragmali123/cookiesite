@@ -24,7 +24,7 @@ import java.io.OutputStream;
 @PhpRoute
 @Controller
 public class CookieController {
-    @GetMapping("/evercookie_cache.php")
+    @GetMapping("/wootag_cache.php")
     public void cacheMethod(
             @RequestParam("name") String name,
             @RequestParam("cookie") String cookiee,
@@ -73,7 +73,7 @@ public class CookieController {
 
     }
 
-    @GetMapping("/evercookie_etag.php")
+    @GetMapping("/wootag_etag.php")
     public void etag(
             @RequestParam("name") String name,
             @RequestParam("cookie") String cookiee,
@@ -114,7 +114,7 @@ public class CookieController {
         resp.setStatus(200);
     }
 
-    @GetMapping("/evercookie_png.php")
+    @GetMapping("/wootag_png.php")
     public void getPng(
             @RequestParam("name") String name,
             @RequestParam("cookie") String cookiee,
