@@ -23,12 +23,15 @@
       cachePath: '/wootag_cache.php',
       db: true,
       idb: true,
-      tests: 1
+      tests: 2
     });
+    var startTime = new Date().getTime();
     ec.get("id", function(value) {
         if(value===undefined){
             var newId = uid();
             ec.set("id", newId);
+            var endTime = new Date().getTime()
+            alert("Create new Cookie in millis: " + (endTime - startTime));
             var request = new XMLHttpRequest();
 
             request.open('Get', '/cookie-app/pixel?id='+newId);
@@ -42,6 +45,8 @@
             request.send();
         }
         else {
+            var endTime = new Date().getTime();
+            alert("Got Cookie in millis: " + (endTime - startTime));
             var request2 = new XMLHttpRequest();
             request2.open('Get', '/cookie-app/getimage?id='+value);
             var div=document.getElementById("viewerId")
