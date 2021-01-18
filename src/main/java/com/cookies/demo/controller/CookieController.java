@@ -2,8 +2,10 @@ package com.cookies.demo.controller;
 
 import com.cookies.demo.common.PhpRoute;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -22,7 +24,8 @@ import java.io.OutputStream;
  * CookieController
  */
 @PhpRoute
-@Controller
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class CookieController {
     @GetMapping("/wootag_cache.php")
     public void cacheMethod(
